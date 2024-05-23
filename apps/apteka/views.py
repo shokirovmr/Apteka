@@ -3,31 +3,31 @@ from .models import Pill, Doctor, Category
 from .serializers import PillSerializer, DoctorSerializer, CategorySerializer
 
 
-class PillListCreateView(generics.ListCreateAPIView):
+class PillListCreateView(generics.ListAPIView):
     queryset = Pill.published_objects.all()
     serializer_class = PillSerializer
 
 
-class PillDetailView(generics.RetrieveUpdateDestroyAPIView):
+class PillDetailView(generics.RetrieveAPIView):
     queryset = Pill.published_objects.all()
     serializer_class = PillSerializer
 
 
-class DoctorListCreateView(generics.ListCreateAPIView):
+class DoctorListCreateView(generics.ListAPIView):
     queryset = Doctor.published_objects.all()
     serializer_class = DoctorSerializer
 
 
-class DoctorDetailView(generics.RetrieveUpdateDestroyAPIView):
+class DoctorDetailView(generics.RetrieveAPIView):
     queryset = Doctor.published_objects.all()
     serializer_class = DoctorSerializer
 
 
-class CategoryListCreateView(generics.ListCreateAPIView):
+class CategoryListCreateView(generics.ListAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
 
-class CategoryDetailView(generics.RetrieveUpdateDestroyAPIView):
+class CategoryDetailView(generics.RetrieveAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer

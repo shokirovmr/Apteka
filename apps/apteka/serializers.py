@@ -7,9 +7,9 @@ class TypeSerializer(serializers.ModelSerializer):
         model = Type
         fields = [
             'id',
-            'name_uz'
-            'name_ru'
-            'name_en'
+            'name_uz',
+            'name_ru',
+            'name_en',
         ]
 
 
@@ -17,23 +17,22 @@ class PillSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pill
         fields = [
-            'id', 'name_uz', 'name_ru', 'name_en' 
-            'body_uz', 'body_ru', 'body_en'
+            'id', 'name_uz', 'name_ru', 'name_en',
+            'body_uz', 'body_ru', 'body_en',
             'price',
-            'information_uz', 'information_ru','information_en',
-            'type_uz', 'type_ru', 'type_uz'
+            'information_uz', 'information_ru', 'information_en',
+            'type_uz', 'type_ru', 'type_uz',
             'expiration_date', 'usage_url', 'picture', 'discount_price',
-            'published', 'created_at', 'updated_at'
+            'published', 'created_at', 'updated_at',
         ]
 
 
 class DoctorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Doctor
-        fields = ['id', 'name', 'direction_uz', 'direction_ru', 'direction_en'
-                  'call', 'body_uz', 'body_ru', 'body_en'
-                  'picture',
-                  'advices', 'published'
+        fields = ['id', 'name', 'direction_uz', 'direction_ru', 'direction_en',
+                  'call', 'body_uz', 'body_ru', 'body_en',
+                  'picture', 'advices'
                   ]
 
 
@@ -64,4 +63,4 @@ class CategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Category
-        fields = ['id', 'name_uz', 'name_ru', 'name_en']
+        fields = ['id', 'name_uz', 'name_ru', 'name_en', ]
