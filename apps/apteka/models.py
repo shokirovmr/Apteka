@@ -13,7 +13,7 @@ class PublishedManager(models.Manager):
 
 
 class Pill(AbstractBaseModel):
-    published_objects = None
+    category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True, blank=True)
     name = models.CharField(max_length=255)
     body = models.CharField(max_length=255)
     price = models.DecimalField(max_digits=10, decimal_places=2)
@@ -32,7 +32,7 @@ class Pill(AbstractBaseModel):
 class Doctor(AbstractBaseModel):
     name = models.CharField(max_length=255)
     direction = models.CharField(max_length=255)
-    call = models.CharField()
+    call = models.CharField(max_length=20)
     body = models.TextField()
     picture = models.ImageField(upload_to='doctors/images/')
     tavsiflari_dori = models.CharField(max_length=255)
@@ -58,4 +58,4 @@ class Achievement(models.Model):
 
 
 class Category(models.Model):
-    pills = models.ManyToManyField(Pill, related_name='categories')
+    name = models.CharField(max_length=255)

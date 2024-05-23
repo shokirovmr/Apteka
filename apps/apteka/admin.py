@@ -30,12 +30,12 @@ class RatingAdmin(admin.ModelAdmin):
 
 @admin.register(Partner)
 class PartnerAdmin(admin.ModelAdmin):
-    list_display = ('image_tag',)
+    list_display = ('image',)
 
 
 @admin.register(Achievement)
 class AchievementAdmin(admin.ModelAdmin):
-    list_display = ('title', 'image_tag')
+    list_display = ('title', 'image')
     search_fields = ('title', 'description')
 
 
@@ -43,4 +43,3 @@ class AchievementAdmin(admin.ModelAdmin):
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name',)
     search_fields = ('name',)
-    filter_horizontal = ('pills',)
