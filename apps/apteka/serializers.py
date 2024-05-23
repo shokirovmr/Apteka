@@ -7,7 +7,9 @@ class TypeSerializer(serializers.ModelSerializer):
         model = Type
         fields = [
             'id',
-            'name'
+            'name_uz'
+            'name_ru'
+            'name_en'
         ]
 
 
@@ -15,7 +17,11 @@ class PillSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pill
         fields = [
-            'id', 'name', 'body', 'price', 'information', 'type',
+            'id', 'name_uz', 'name_ru', 'name_en' 
+            'body_uz', 'body_ru', 'body_en'
+            'price',
+            'information_uz', 'information_ru','information_en',
+            'type_uz', 'type_ru', 'type_uz'
             'expiration_date', 'usage_url', 'picture', 'discount_price',
             'published', 'created_at', 'updated_at'
         ]
@@ -24,8 +30,10 @@ class PillSerializer(serializers.ModelSerializer):
 class DoctorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Doctor
-        fields = ['id', 'name', 'direction', 'call', 'body', 'picture',
-                  'tavsiflari_dori', 'published'
+        fields = ['id', 'name', 'direction_uz', 'direction_ru', 'direction_en'
+                  'call', 'body_uz', 'body_ru', 'body_en'
+                  'picture',
+                  'advices', 'published'
                   ]
 
 
@@ -46,7 +54,9 @@ class PartnerSerializer(serializers.ModelSerializer):
 class AchievementSerializer(serializers.ModelSerializer):
     class Meta:
         model = Achievement
-        fields = ['id', 'image', 'title', 'description']
+        fields = ['id', 'image', 'title_uz', 'title_ru', 'title_en',
+                  'description_uz', 'description_ru', 'description_en',
+                  ]
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -54,4 +64,4 @@ class CategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Category
-        fields = ['id', 'pills']
+        fields = ['id', 'name_uz', 'name_ru', 'name_en']

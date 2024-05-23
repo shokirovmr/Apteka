@@ -10,14 +10,14 @@ class TypeAdmin(TabbedTranslationAdmin):
 
 
 @admin.register(Pill)
-class PillAdmin(admin.ModelAdmin):
+class PillAdmin(TabbedTranslationAdmin):
     list_display = ('name', 'price', 'type', 'published')
     list_filter = ('published', 'type')
     search_fields = ('name', 'information')
 
 
 @admin.register(Doctor)
-class DoctorAdmin(admin.ModelAdmin):
+class DoctorAdmin(TabbedTranslationAdmin):
     list_display = ('name', 'direction', 'published')
     list_filter = ('published',)
     search_fields = ('name', 'direction')
@@ -35,12 +35,12 @@ class PartnerAdmin(admin.ModelAdmin):
 
 
 @admin.register(Achievement)
-class AchievementAdmin(admin.ModelAdmin):
+class AchievementAdmin(TabbedTranslationAdmin):
     list_display = ('title', 'image')
     search_fields = ('title', 'description')
 
 
 @admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
+class CategoryAdmin(TabbedTranslationAdmin):
     list_display = ('name',)
     search_fields = ('name',)
