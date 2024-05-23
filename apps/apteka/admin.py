@@ -1,9 +1,10 @@
 from django.contrib import admin
+from modeltranslation.admin import TabbedTranslationAdmin
 from .models import Type, Pill, Doctor, Rating, Partner, Achievement, Category
 
 
 @admin.register(Type)
-class TypeAdmin(admin.ModelAdmin):
+class TypeAdmin(TabbedTranslationAdmin):
     list_display = ('name',)
     search_fields = ('name',)
 

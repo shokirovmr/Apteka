@@ -6,6 +6,9 @@ from apps.shared.models import AbstractBaseModel
 class Type(AbstractBaseModel):
     name = models.CharField(max_length=255)
 
+    def __str__(self):
+        return self.name
+
 
 class PublishedManager(models.Manager):
     def get_queryset(self):
@@ -28,6 +31,9 @@ class Pill(AbstractBaseModel):
     objects = models.Manager()
     published_objects = PublishedManager()
 
+    def __str__(self):
+        return f"{self.category}-{self.name}"
+
 
 class Doctor(AbstractBaseModel):
     name = models.CharField(max_length=255)
@@ -35,7 +41,7 @@ class Doctor(AbstractBaseModel):
     call = models.CharField(max_length=20)
     body = models.TextField()
     picture = models.ImageField(upload_to='doctors/images/')
-    tavsiflari_dori = models.CharField(max_length=255)
+    advices = models.ManyToManyField(Pill, related_name='doctors')
     published = models.BooleanField(default=False)
 
     objects = models.Manager()
@@ -59,3 +65,6 @@ class Achievement(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
