@@ -16,24 +16,34 @@ class PublishedManager(models.Manager):
         return super().get_queryset().filter(published=True)
 
 
+ranking = (
+    (1, 1), (2, 2), (3, 3), (4, 4), (5, 5)
+)
+
+
 class Pill(AbstractBaseModel):
-    category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True, blank=True)
+    categories = models.ManyToManyField('Category', null=True, blank=True)
     name = models.CharField(max_length=255)
     body = models.CharField(max_length=255, null=True, blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     information = models.CharField(max_length=255, null=True, blank=True)
     type = models.ForeignKey(Type, on_delete=models.CASCADE, related_name='pills')
     expiration_date = models.DateField()
-    usage_url = models.URLField(max_length=1024)
+    usage_url = models.URLField(max_length=1024, null=True, blank=True)
     picture = models.ImageField(upload_to='pills/images/')
     discount_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     published = models.BooleanField(default=False)
+    popular = models.BooleanField(default=False, verbose_name="ommabopmi?")
+    rank = models.IntegerField(choices=ranking, default=5)
 
     objects = models.Manager()
     published_objects = PublishedManager()
 
     def __str__(self):
         return f"{self.category}-{self.name}"
+
+    class Meta:
+        ordering = ["-published"]
 
 
 class Doctor(AbstractBaseModel):
@@ -48,10 +58,8 @@ class Doctor(AbstractBaseModel):
     objects = models.Manager()
     published_objects = PublishedManager()
 
-
-class Rating(models.Model):
-    rank = models.IntegerField()
-    pill = models.ForeignKey(Pill, on_delete=models.CASCADE, related_name='ratings')
+    class Meta:
+        ordering = ["-created_at"]
 
 
 class Partner(models.Model):
@@ -78,6 +86,9 @@ class Commentary(models.Model):
 
     def __str__(self):
         return f"Commentary by {self.author} on {self.published}"
+
+    class Meta:
+        ordering = ["-published"]
 
 
 class Entry(models.Model):

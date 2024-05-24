@@ -1,6 +1,6 @@
 from django.contrib import admin
 from modeltranslation.admin import TabbedTranslationAdmin
-from .models import Type, Pill, Doctor, Rating, Partner, Achievement, Category, Commentary, Entry
+from .models import Type, Pill, Doctor, Partner, Achievement, Category, Commentary, Entry
 
 
 @admin.register(Type)
@@ -23,10 +23,6 @@ class DoctorAdmin(TabbedTranslationAdmin):
     search_fields = ('name', 'direction')
 
 
-@admin.register(Rating)
-class RatingAdmin(admin.ModelAdmin):
-    list_display = ('rank', 'pill')
-    search_fields = ('pill__name',)
 
 
 @admin.register(Partner)

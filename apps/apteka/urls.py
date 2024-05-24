@@ -2,7 +2,8 @@ from django.urls import path
 from .views import (PillListCreateView, PillDetailView, DoctorListCreateView,
                     DoctorDetailView, CategoryListCreateView, CategoryDetailView, CommentaryListCreateView,
                     CommentaryRetrieveUpdateDestroyView,
-                    EntryListCreateView, EntryRetrieveUpdateDestroyView)
+                    EntryListCreateView, EntryRetrieveUpdateDestroyView, PopularPillsAPIView, LastPillsAPIView,
+                    DiscountPillsAPIView, RatingPillsAPIView)
 
 urlpatterns = [
     path('pills/', PillListCreateView.as_view(), name='pill-list'),
@@ -15,5 +16,10 @@ urlpatterns = [
     path('commentaries/<int:pk>/', CommentaryRetrieveUpdateDestroyView.as_view(), name='commentary-detail'),
     path('entries/', EntryListCreateView.as_view(), name='entry-list-create'),
     path('entries/<int:pk>/', EntryRetrieveUpdateDestroyView.as_view(), name='entry-detail'),
+    path('popular-pills/', PopularPillsAPIView.as_view(), name='popular-pills'),
+    path('lasts-pills', LastPillsAPIView.as_view(), name='lasts-pills'),
+    path('discount-pills', DiscountPillsAPIView.as_view(), name='discount-pills'),
+    path('ranked-pills', RatingPillsAPIView.as_view(), name='ranked-pills'),
+
 
 ]

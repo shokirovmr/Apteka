@@ -1,6 +1,7 @@
 from rest_framework import generics
 from .models import Pill, Doctor, Category, Commentary, Entry
-from .serializers import PillSerializer, DoctorSerializer, CategorySerializer, CommentarySerializer, EntrySerializer
+from .serializers import PillSerializer, DoctorSerializer, CategorySerializer, CommentarySerializer, EntrySerializer, \
+    DiscountPillSerializer, SmallPillSerializer
 
 
 class PillListCreateView(generics.ListAPIView):
@@ -51,3 +52,31 @@ class EntryListCreateView(generics.ListCreateAPIView):
 class EntryRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Entry.objects.all()
     serializer_class = EntrySerializer
+
+
+class PopularPillsAPIView(generics.ListAPIView):
+    serializer_class = SmallPillSerializer
+    queryset = Pill.published_objects.filter(popular=True)
+
+
+class LastPillsAPIView(generics.ListAPIView):
+    serializer_class = PillSerializer
+    queryset = Pill.published_objects.all()[:10]
+
+
+class DiscountPillsAPIView(generics.ListAPIView):
+    serializer_class = DiscountPillSerializer
+    queryset = Pill.published_objects.all()
+
+    def get_queryset(self):
+        queryset = super(DiscountPillsAPIView, self).get_queryset()
+        queryset = filter(lambda obj: obj.discount_price, queryset)
+        return queryset
+
+
+class RatingPillsAPIView(generics.ListAPIView):
+    serializer_class = SmallPillSerializer
+
+    def get_queryset(self):
+        queryset = Pill.published_objects.all()
+        return sorted(queryset, key=lambda obj: obj.rank, reverse=True)
