@@ -1,6 +1,6 @@
 from django.contrib import admin
 from modeltranslation.admin import TabbedTranslationAdmin
-from .models import Type, Pill, Doctor, Rating, Partner, Achievement, Category
+from .models import Type, Pill, Doctor, Rating, Partner, Achievement, Category, Commentary, Entry
 
 
 @admin.register(Type)
@@ -44,3 +44,17 @@ class AchievementAdmin(TabbedTranslationAdmin):
 class CategoryAdmin(TabbedTranslationAdmin):
     list_display = ('name',)
     search_fields = ('name',)
+
+
+@admin.register(Commentary)
+class CommentaryAdmin(admin.ModelAdmin):
+    list_display = ('author', 'body', 'published')
+    search_fields = ('author', 'body')
+    list_filter = ('published',)
+
+
+@admin.register(Entry)
+class EntryAdmin(admin.ModelAdmin):
+    list_display = ('fullname', 'phonenumber', 'created_at')
+    search_fields = ('fullname', 'phonenumber')
+    list_filter = ('created_at',)

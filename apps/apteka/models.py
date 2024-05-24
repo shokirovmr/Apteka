@@ -1,3 +1,4 @@
+from django.core.validators import MinLengthValidator
 from django.db import models
 
 from apps.shared.models import AbstractBaseModel
@@ -68,3 +69,21 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Commentary(models.Model):
+    author = models.CharField(max_length=255)
+    body = models.TextField()
+    published = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Commentary by {self.author} on {self.published}"
+
+
+class Entry(models.Model):
+    fullname = models.CharField(max_length=255)
+    phonenumber = models.CharField(max_length=20, validators=[MinLengthValidator(7)])
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.fullname

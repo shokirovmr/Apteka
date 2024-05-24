@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Pill, Type, Doctor, Rating, Partner, Achievement, Category
+from .models import Pill, Type, Doctor, Rating, Partner, Achievement, Category, Commentary, Entry
 
 
 class TypeSerializer(serializers.ModelSerializer):
@@ -64,3 +64,15 @@ class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = ['id', 'name_uz', 'name_ru', 'name_en', 'pills', ]
+
+
+class CommentarySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Commentary
+        fields = ['id', 'author', 'body', 'published']
+
+
+class EntrySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Entry
+        fields = ['id', 'fullname', 'phonenumber', 'created_at']

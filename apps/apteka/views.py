@@ -1,6 +1,6 @@
 from rest_framework import generics
-from .models import Pill, Doctor, Category
-from .serializers import PillSerializer, DoctorSerializer, CategorySerializer
+from .models import Pill, Doctor, Category, Commentary, Entry
+from .serializers import PillSerializer, DoctorSerializer, CategorySerializer, CommentarySerializer, EntrySerializer
 
 
 class PillListCreateView(generics.ListAPIView):
@@ -31,3 +31,23 @@ class CategoryListCreateView(generics.ListAPIView):
 class CategoryDetailView(generics.RetrieveAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+
+
+class CommentaryListCreateView(generics.ListCreateAPIView):
+    queryset = Commentary.objects.all()
+    serializer_class = CommentarySerializer
+
+
+class CommentaryRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Commentary.objects.all()
+    serializer_class = CommentarySerializer
+
+
+class EntryListCreateView(generics.ListCreateAPIView):
+    queryset = Entry.objects.all()
+    serializer_class = EntrySerializer
+
+
+class EntryRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Entry.objects.all()
+    serializer_class = EntrySerializer
