@@ -5,15 +5,15 @@ from .models import Type, Pill, Doctor, Partner, Achievement, Category, Commenta
 
 @admin.register(Type)
 class TypeAdmin(TabbedTranslationAdmin):
-    list_display = ('name',)
-    search_fields = ('name',)
+    list_display = ('name_uz', 'name_ru', 'name_en',)
+    search_fields = ('name_uz', 'name_ru', 'name_en',)
 
 
 @admin.register(Pill)
 class PillAdmin(TabbedTranslationAdmin):
     list_display = ('name', 'price', 'type', 'published')
     list_filter = ('published', 'type')
-    search_fields = ('name', 'information')
+    search_fields = ('name_uz', 'name_ru', 'name_en', 'information')
 
 
 @admin.register(Doctor)
@@ -21,8 +21,6 @@ class DoctorAdmin(TabbedTranslationAdmin):
     list_display = ('name', 'direction', 'published')
     list_filter = ('published',)
     search_fields = ('name', 'direction')
-
-
 
 
 @admin.register(Partner)

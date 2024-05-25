@@ -7,6 +7,9 @@ from apps.shared.models import AbstractBaseModel
 class Type(AbstractBaseModel):
     name = models.CharField(max_length=255)
 
+    class Meta:
+        db_table = 'types'
+
     def __str__(self):
         return self.name
 
@@ -22,7 +25,7 @@ ranking = (
 
 
 class Pill(AbstractBaseModel):
-    categories = models.ManyToManyField('Category', null=True, blank=True)
+    categories = models.ManyToManyField('Category')
     name = models.CharField(max_length=255)
     body = models.CharField(max_length=255, null=True, blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
@@ -39,11 +42,12 @@ class Pill(AbstractBaseModel):
     objects = models.Manager()
     published_objects = PublishedManager()
 
-    def __str__(self):
-        return f"{self.category}-{self.name}"
-
     class Meta:
+        db_table = 'pills'
         ordering = ["-published"]
+
+    def __str__(self):
+        return f"{self.name}"
 
 
 class Doctor(AbstractBaseModel):
@@ -60,6 +64,7 @@ class Doctor(AbstractBaseModel):
 
     class Meta:
         ordering = ["-created_at"]
+        db_table = 'doctors'
 
 
 class Partner(models.Model):
@@ -71,9 +76,15 @@ class Achievement(models.Model):
     title = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
 
+    class Meta:
+        db_table = 'achievements'
+
 
 class Category(models.Model):
     name = models.CharField(max_length=255)
+
+    class Meta:
+        db_table = 'categories'
 
     def __str__(self):
         return self.name
@@ -89,12 +100,16 @@ class Commentary(models.Model):
 
     class Meta:
         ordering = ["-published"]
+        db_table = 'comments'
 
 
 class Entry(models.Model):
     fullname = models.CharField(max_length=255)
     phonenumber = models.CharField(max_length=20, validators=[MinLengthValidator(7)])
     created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'entries'
 
     def __str__(self):
         return self.fullname

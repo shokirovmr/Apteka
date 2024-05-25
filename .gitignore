@@ -2,6 +2,6 @@
 venv/
 .idea/
 __pycache__/
-db.sqlite3
+bot/db.sqlite3
 .env
 test.py
