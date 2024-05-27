@@ -8,6 +8,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("apps.shared.urls")),
     path("", include("apps.apteka.urls")),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
 ]
 urlpatterns += swagger_patterns
 if settings.DEBUG:
