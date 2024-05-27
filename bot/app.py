@@ -2,12 +2,12 @@ import asyncio
 import logging
 import sys
 
-from loader import dp, bot, db
+from loader import dp, bot, db, main_db
 import handlers
 
 
 async def main() -> None:
-    await db.connect()
+    await main_db()
     await dp.start_polling(bot)
 
 

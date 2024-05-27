@@ -5,3 +5,4 @@ __pycache__/
 bot/db.sqlite3
 .env
 test.py
+bot/envs/.env

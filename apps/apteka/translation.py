@@ -7,7 +7,7 @@ class TypeTranslationOptions(TranslationOptions):
 
 
 class PillTranslationOPtions(TranslationOptions):
-    fields = ('name', 'body', 'information', 'type', )
+    fields = ('name', 'body', 'information', )
 
 
 class DoctorTranslationOption(TranslationOptions):

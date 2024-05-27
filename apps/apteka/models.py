@@ -25,12 +25,12 @@ ranking = (
 
 
 class Pill(AbstractBaseModel):
-    categories = models.ManyToManyField('Category')
+    categories = models.ManyToManyField('Category', null=True, blank=True)
     name = models.CharField(max_length=255)
     body = models.CharField(max_length=255, null=True, blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     information = models.CharField(max_length=255, null=True, blank=True)
-    type = models.ForeignKey(Type, on_delete=models.CASCADE, related_name='pills')
+    type = models.ForeignKey(Type, on_delete=models.CASCADE, related_name='pills', null=True, blank=True)
     expiration_date = models.DateField()
     usage_url = models.URLField(max_length=1024, null=True, blank=True)
     picture = models.ImageField(upload_to='pills/images/')

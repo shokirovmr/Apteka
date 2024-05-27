@@ -5,7 +5,7 @@ from .models import Type, Pill, Doctor, Partner, Achievement, Category, Commenta
 
 @admin.register(Type)
 class TypeAdmin(TabbedTranslationAdmin):
-    list_display = ('name_uz', 'name_ru', 'name_en',)
+    list_display = ('name', )
     search_fields = ('name_uz', 'name_ru', 'name_en',)
 
 
