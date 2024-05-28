@@ -35,6 +35,7 @@ class Pill(AbstractBaseModel):
     information = models.CharField(max_length=255, null=True, blank=True, verbose_name="Tarkibi")
     type = models.ForeignKey(Type, on_delete=models.CASCADE, related_name='pills', null=True, blank=True,
                              verbose_name="Dori turi")
+    expiration_date = models.DateField(verbose_name="Yaroqlilik muddati")
     usage_url = models.URLField(max_length=1024, null=True, blank=True, verbose_name="Foydalanish video manzili")
     picture = models.ImageField(upload_to='pills/images/', verbose_name="Rasmi")
     discount_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True,
@@ -57,7 +58,7 @@ class Pill(AbstractBaseModel):
 
 
 class Doctor(AbstractBaseModel):
-    name = models.CharField(max_length=255, verbose_name="Ism-familiya")
+    fullname = models.CharField(max_length=255, verbose_name="Ism-familiya")
     direction = models.CharField(max_length=255, verbose_name="Yo'nalishi")
     call = models.CharField(max_length=20, verbose_name="Telefon raqami")
     body = models.TextField(null=True, blank=True, verbose_name="Qo'shimcha ma'lumotlar")
@@ -69,7 +70,7 @@ class Doctor(AbstractBaseModel):
     published_objects = PublishedManager()
 
     def __str__(self):
-        return self.name
+        return self.fullname
 
     class Meta:
         ordering = ["-created_at"]
@@ -79,10 +80,10 @@ class Doctor(AbstractBaseModel):
 
 
 class Partner(models.Model):
-    image = models.ImageField(upload_to='partners/images/', verbose_name="Hamkor logosi")
+    picture = models.ImageField(upload_to='partners/images/', verbose_name="Hamkor logosi")
 
     def __str__(self):
-        return self.image
+        return self.picture
 
     class Meta:
         db_table = 'partners'
@@ -91,8 +92,8 @@ class Partner(models.Model):
         verbose_name_plural = 'Hamkorlar'
 
 
-class Achievement(models.Model):
-    image = models.ImageField(upload_to='achievements/images/', verbose_name="Rasmi")
+class Achievement(AbstractBaseModel):
+    picture = models.ImageField(upload_to='achievements/images/', verbose_name="Rasmi")
     title = models.CharField(max_length=255, verbose_name="Sarlavhasi")
     description = models.CharField(max_length=255, verbose_name="Matni")
 
@@ -101,7 +102,7 @@ class Achievement(models.Model):
 
     class Meta:
         db_table = 'achievements'
-        ordering = ['-id']
+        ordering = ['-created_at']
         verbose_name = 'Muvaffaqiyat'
         verbose_name_plural = 'Muvaffaqiyatlar'
 
@@ -120,14 +121,14 @@ class Category(models.Model):
 
 class Commentary(models.Model):
     author = models.CharField(max_length=255, verbose_name="Avtor")
-    body = models.TextField(verbose_name="Text")
-    published = models.DateField(auto_now_add=True, verbose_name="Izoh yozilgan vaqt")
+    body = models.TextField(verbose_name="Izoh")
+    created_at = models.DateField(auto_now_add=True, verbose_name="Izoh yozilgan vaqt")
 
     def __str__(self):
-        return f"Commentary by {self.author} on {self.published}"
+        return f"Commentary by {self.author} on {self.created_at}"
 
     class Meta:
-        ordering = ["-published"]
+        ordering = ["-created_at"]
         db_table = 'comments'
         verbose_name = 'Izoh'
         verbose_name_plural = 'Izohlar'
@@ -135,8 +136,8 @@ class Commentary(models.Model):
 
 class Entry(models.Model):
     fullname = models.CharField(max_length=255, verbose_name="Ism-familiya")
-    phonenumber = models.CharField(max_length=20, validators=[MinLengthValidator(7)],
-                                   verbose_name="Telefon raqam")
+    phone_number = models.CharField(max_length=20, validators=[MinLengthValidator(7)],
+                                    verbose_name="Telefon raqam")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Yuborilgan vaqt")
 
     class Meta:

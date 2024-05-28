@@ -1,5 +1,5 @@
 from modeltranslation.translator import translator, TranslationOptions
-from .models import Type, Pill, Achievement, Category, Doctor
+from .models import Type, Pill, Achievement, Category, Doctor, Commentary
 
 
 class TypeTranslationOptions(TranslationOptions):
@@ -22,8 +22,13 @@ class CategoryTranslationOptions(TranslationOptions):
     fields = ('name',)
 
 
+class CommentaryTranslationOptions(TranslationOptions):
+    fields = ('body',)
+
+
 translator.register(Type, TypeTranslationOptions)
 translator.register(Pill, PillTranslationOPtions)
 translator.register(Achievement, AchievementTranslationOptions)
 translator.register(Doctor, DoctorTranslationOption)
 translator.register(Category, CategoryTranslationOptions)
+translator.register(Commentary, CommentaryTranslationOptions)

@@ -18,19 +18,19 @@ class PillAdmin(TabbedTranslationAdmin):
 
 @admin.register(Doctor)
 class DoctorAdmin(TabbedTranslationAdmin):
-    list_display = ('name', 'direction', 'published')
+    list_display = ('fullname', 'direction', 'published')
     list_filter = ('published',)
     search_fields = ('name', 'direction')
 
 
 @admin.register(Partner)
 class PartnerAdmin(admin.ModelAdmin):
-    list_display = ('image',)
+    list_display = ('picture',)
 
 
 @admin.register(Achievement)
 class AchievementAdmin(TabbedTranslationAdmin):
-    list_display = ('title', 'image')
+    list_display = ('title', 'picture')
     search_fields = ('title', 'description')
 
 
@@ -42,13 +42,13 @@ class CategoryAdmin(TabbedTranslationAdmin):
 
 @admin.register(Commentary)
 class CommentaryAdmin(admin.ModelAdmin):
-    list_display = ('author', 'body', 'published')
+    list_display = ('author', 'body', 'created_at')
     search_fields = ('author', 'body')
-    list_filter = ('published',)
+    list_filter = ('author',)
 
 
 @admin.register(Entry)
 class EntryAdmin(admin.ModelAdmin):
-    list_display = ('fullname', 'phonenumber', 'created_at')
-    search_fields = ('fullname', 'phonenumber')
+    list_display = ('fullname', 'phone_number', 'created_at')
+    search_fields = ('fullname', 'phone_number')
     list_filter = ('created_at',)
