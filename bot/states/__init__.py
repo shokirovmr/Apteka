@@ -1,1 +1,1 @@
-from .types_states import TypeAddStates
+from .types_states import TypeAddStates, CategoryAddStates, PartnersAddStates

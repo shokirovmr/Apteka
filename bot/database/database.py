@@ -5,7 +5,7 @@ import asyncio
 from environs import Env
 
 env = Env()
-env.read_env('envs/.env')
+env.read_env('.env')
 
 
 class Database:
@@ -44,7 +44,7 @@ class Database:
 
     async def select_type(self, id):
         query = "SELECT id, name, name_ru, name_en FROM types WHERE id=%s;"
-        return await self.execute(query, (id, ), fetchone=True)
+        return await self.execute(query, (id,), fetchone=True)
 
     async def delete_type(self, id):
         # Assuming `type_id` can be set to NULL or you have a default type_id
@@ -58,3 +58,41 @@ class Database:
     async def update_type(self, id, name_uz, name_ru, name_en):
         query = "UPDATE types SET name = %s, name_uz = %s, name_ru = %s, name_en = %s WHERE id = %s;"
         await self.execute(query, (name_uz, name_uz, name_ru, name_en, id))
+
+    async def category_add(self, name_uz, name_ru, name_en, id=None, *args):
+        query = "INSERT INTO categories (name, name_uz, name_ru, name_en) VALUES (%s, %s, %s, %s);"
+        await self.execute(query, (name_uz, name_uz, name_ru, name_en))
+
+    async def select_categories(self):
+        query = "SELECT id, name FROM categories;"
+        return await self.execute(query, fetchall=True)
+
+    async def select_category(self, id):
+        query = "SELECT id, name, name_ru, name_en FROM categories WHERE id=%s;"
+        return await self.execute(query, (id,), fetchone=True)
+
+    async def delete_category(self, id):
+        update_query = "UPDATE pills_categories SET category_id = NULL WHERE category_id = %s;"
+        await self.execute(update_query, (id))
+
+        # Now, attempt to delete the category
+        delete_query = "DELETE FROM categories WHERE id = %s;"
+        await self.execute(delete_query, (id))
+
+    async def update_category(self, id, name_uz, name_ru, name_en):
+        query = "UPDATE categories SET name = %s, name_uz = %s, name_ru = %s, name_en = %s WHERE id = %s;"
+        await self.execute(query, (name_uz, name_uz, name_ru, name_en, id))
+
+    # ----------------------------------------------
+
+    async def select_partners(self):
+        query = "SELECT id, partner_id FROM partners"
+        return await self.execute(query, fetchall=True)
+
+    async def add_partner(self, image_id: str):
+        query = "INSERT INTO partners (image_id) VALUES (%s)"
+        await self.execute(query, (image_id, ))
+
+    async def execute_query(self, query: str, *params):
+        async with self.pool.acquire() as connection:
+            return await connection.fetch(query, *params)
