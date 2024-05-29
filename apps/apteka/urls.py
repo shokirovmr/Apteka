@@ -1,25 +1,25 @@
 from django.urls import path
-from .views import (PillListCreateView, PillDetailView, DoctorListCreateView,
-                    DoctorDetailView, CategoryListCreateView, CategoryDetailView, CommentaryListCreateView,
-                    CommentaryRetrieveUpdateDestroyView,
-                    EntryListCreateView, EntryRetrieveUpdateDestroyView, PopularPillsAPIView, LastPillsAPIView,
-                    DiscountPillsAPIView, RatingPillsAPIView)
+from .views import (PopularPillsAPIView, LastPillsAPIView, DiscountPillsAPIView, RatingPillsAPIView, AllPillsAPIView,
+                    PillDetailAPIView, CommentaryListAPIView, DoctorListAPIView, DoctorDetailAPIView,
+                    PartnerListAPIView, CategoryListAPIView, AchievementListAPIView, AchievementRetrieveAPIView)
 
 urlpatterns = [
-    path('pills/', PillListCreateView.as_view(), name='pill-list'),
-    path('pills/<int:pk>/', PillDetailView.as_view(), name='pill-detail'),
-    path('doctors/', DoctorListCreateView.as_view(), name='doctor-list'),
-    path('doctors/<int:pk>/', DoctorDetailView.as_view(), name='doctor-detail'),
-    path('categories/', CategoryListCreateView.as_view(), name='category-list'),
-    path('categories/<int:pk>/', CategoryDetailView.as_view(), name='category-detail'),
-    path('commentaries/', CommentaryListCreateView.as_view(), name='commentary-list-create'),
-    path('commentaries/<int:pk>/', CommentaryRetrieveUpdateDestroyView.as_view(), name='commentary-detail'),
-    path('entries/', EntryListCreateView.as_view(), name='entry-list-create'),
-    path('entries/<int:pk>/', EntryRetrieveUpdateDestroyView.as_view(), name='entry-detail'),
+    path('lasts-pills/', LastPillsAPIView.as_view(), name='lasts-pills'),
     path('popular-pills/', PopularPillsAPIView.as_view(), name='popular-pills'),
-    path('lasts-pills', LastPillsAPIView.as_view(), name='lasts-pills'),
-    path('discount-pills', DiscountPillsAPIView.as_view(), name='discount-pills'),
-    path('ranked-pills', RatingPillsAPIView.as_view(), name='ranked-pills'),
+    path('ranked-pills/', RatingPillsAPIView.as_view(), name='ranked-pills'),
+    path('discount-pills/', DiscountPillsAPIView.as_view(), name='discount-pills'),
+    path('pills/', AllPillsAPIView.as_view(), name='pills-list'),
+    path('pills/<int:pk>/', PillDetailAPIView.as_view(), name='pill-detail'),
 
+    path('doctors/', DoctorListAPIView.as_view(), name='doctor-list'),
+    path('doctors/<int:pk>/', DoctorDetailAPIView.as_view(), name='doctor-detail'),
 
+    path('commentaries/', CommentaryListAPIView.as_view(), name='commentary-list'),
+
+    path('partners/', PartnerListAPIView.as_view(), name='partners-list'),
+
+    path('categories/', CategoryListAPIView.as_view(), name='category-list'),
+
+    path('achievements/', AchievementListAPIView.as_view(), name='achievement-list'),
+    path('achievements/<int:pk>/', AchievementRetrieveAPIView.as_view(), name='achievement-detail'),
 ]

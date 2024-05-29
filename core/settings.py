@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "ckeditor",
     "apps.shared.apps.SharedConfig",
     "apps.apteka.apps.AptekaConfig",
     "rest_framework",
@@ -140,6 +141,15 @@ MODEL_TRANSLATION_DEFAULT_LANGUAGE = 'uz'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+    },
+}
+
+CKEDITOR_FILENAME_GENERATOR = 'utils.get_filename'
+CKEDITOR_UPLOAD_PATH = "uploads/"
 
 STATIC_URL = "static/"
 STATICFILES_DIRS = [str(BASE_DIR.joinpath("static"))]
