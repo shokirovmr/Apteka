@@ -22,13 +22,8 @@ class CategoryTranslationOptions(TranslationOptions):
     fields = ('name',)
 
 
-class CommentaryTranslationOptions(TranslationOptions):
-    fields = ('body',)
-
-
 translator.register(Type, TypeTranslationOptions)
 translator.register(Pill, PillTranslationOPtions)
 translator.register(Achievement, AchievementTranslationOptions)
 translator.register(Doctor, DoctorTranslationOption)
 translator.register(Category, CategoryTranslationOptions)
-translator.register(Commentary, CommentaryTranslationOptions)

@@ -33,11 +33,11 @@ class Pill(AbstractBaseModel):
     body = RichTextField(null=True, blank=True, verbose_name="Dori haqida ma'lumot")
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Narxi")
     information = models.CharField(max_length=255, null=True, blank=True, verbose_name="Tarkibi")
-    type = models.ForeignKey(Type, on_delete=models.CASCADE, related_name='pills', null=True, blank=True,
+    type = models.ForeignKey(Type, on_delete=models.SET_NULL, related_name='pills', null=True, blank=True,
                              verbose_name="Dori turi")
     expiration_date = models.DateField(verbose_name="Yaroqlilik muddati")
     usage_url = models.URLField(max_length=1024, null=True, blank=True, verbose_name="Foydalanish video manzili")
-    picture = models.ImageField(upload_to='pills/images/', verbose_name="Rasmi")
+    picture = models.ImageField(upload_to='pills/photos/', verbose_name="Rasmi")
     discount_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True,
                                          verbose_name="Chegirma narxi")
     published = models.BooleanField(default=False, verbose_name="Saytda ko'rinsinmi?")
@@ -62,7 +62,7 @@ class Doctor(AbstractBaseModel):
     direction = models.CharField(max_length=255, verbose_name="Yo'nalishi")
     call = models.CharField(max_length=20, verbose_name="Telefon raqami")
     body = models.TextField(null=True, blank=True, verbose_name="Qo'shimcha ma'lumotlar")
-    picture = models.ImageField(upload_to='doctors/images/', verbose_name="Rasmi")
+    picture = models.ImageField(upload_to='doctors/photos/', verbose_name="Rasmi")
     advices = models.ManyToManyField(Pill, related_name='doctors', verbose_name="Tavsiya qilgan dorilari")
     published = models.BooleanField(default=False, verbose_name="Saytda ko'rinsinmi?")
 
@@ -80,10 +80,10 @@ class Doctor(AbstractBaseModel):
 
 
 class Partner(models.Model):
-    picture = models.ImageField(upload_to='partners/images/', verbose_name="Hamkor logosi")
+    picture = models.ImageField(upload_to='partners/photos/', verbose_name="Hamkor logosi")
 
     def __str__(self):
-        return self.picture
+        return f"{self.picture}"
 
     class Meta:
         db_table = 'partners'
